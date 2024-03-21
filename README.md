@@ -1,3 +1,7 @@
+![screenshot](https://raw.githubusercontent.com/pesuts/kuis_prak-mobile_if-e_123210047/main/Screenshot%20(1482).png)
+![screenshot](https://raw.githubusercontent.com/pesuts/kuis_prak-mobile_if-e_123210047/main/Screenshot%20(1483).png)
+
+
 # kuis_123210047
 
 A new Flutter project.
