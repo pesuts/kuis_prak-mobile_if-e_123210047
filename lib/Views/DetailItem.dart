@@ -18,6 +18,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           widget.grocery.name,
           style: TextStyle(color: Colors.white),
@@ -25,51 +26,62 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget.grocery.isFavorite = !widget.grocery.isFavorite;
+                });
+              },
               icon: Icon(
-                Icons.favorite_outline,
-                color: Colors.white,
+                (widget.grocery.isFavorite)
+                    ? Icons.favorite_outline
+                    : Icons.favorite,
+                color: (widget.grocery.isFavorite) ? Colors.white : Colors.red,
               )),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-        child: SingleChildScrollView(
-          // child: Container(
-          // color: Colors.blue,
+      body: SingleChildScrollView(
+        child: Container(
+          // width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
+          // height: 300,
+          // height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 300,
-                height: 300,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  // controller: ScrollController(),
-                  // child: ,
-                  child: Row(
-                    children: [
-                      Image.network(widget.grocery.productImageUrls[0]),
-                      Image.network(widget.grocery.productImageUrls[1]),
-                      Image.network(widget.grocery.productImageUrls[2]),
-                    ],
+              // Expanded(
+              //   child:
+                Container(
+                  width: 300,
+                    height: 300,
+                  padding: EdgeInsets.all(2),
+                  margin: EdgeInsets.only(bottom: 15),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  child: Image.network(
+                    widget.grocery.productImageUrls[0],
+                    // height: 300,
+                    // width: 300,
+                  ),
+                  //   child:
+                  // return Text("coba");
                 ),
-                // child: Image.network(widget.grocery.productImageUrls[0]),
-              ),
+              // ),
               Column(
                 children: [
                   Row(
                     children: [
                       Text(
                         widget.grocery.name,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w700),
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: EdgeInsets.symmetric(vertical: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -92,43 +104,66 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RatingBar.builder(
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                        initialRating:
-                            double.parse(widget.grocery.reviewAverage),
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemBuilder: (context, index) {
-                          return Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          );
-                        },
-                        itemCount: 5,
+                      Row(
+                        children: [
+                          RatingBar.builder(
+                            itemSize: 20,
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
+                            initialRating:
+                                double.parse(widget.grocery.reviewAverage),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemBuilder: (context, index) {
+                              return Icon(
+                                size: 1,
+                                Icons.star,
+                                color: Colors.amber,
+                              );
+                            },
+                            itemCount: 5,
+                          ),
+                          Text(
+                            " | Tersedia: ${widget.grocery.stock}",
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
                       ),
-                      Text(
-                        " | Tersedia: ${widget.grocery.stock}",
-                        style: TextStyle(fontSize: 15),
-                      )
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              widget.grocery.isFavorite =
+                                  !widget.grocery.isFavorite;
+                            });
+                          },
+                          icon: Icon(
+                            (widget.grocery.isFavorite)
+                                ? Icons.favorite_outline
+                                : Icons.favorite,
+                            color: (widget.grocery.isFavorite)
+                                ? Colors.grey
+                                : Colors.red,
+                          )),
                     ],
                   ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(vertical: 25),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
                           border: Border.symmetric(
                               horizontal:
                                   BorderSide(color: Colors.grey, width: 2))),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
                             Icon(Icons.store),
+                            SizedBox(width: 10),
                             Text(
                               widget.grocery.storeName,
                               style: TextStyle(
@@ -145,8 +180,6 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ],
           ),
-
-          // ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

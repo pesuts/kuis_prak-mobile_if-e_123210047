@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kuis_123210047/groceries.dart';
-import 'package:kuis_123210047/Views/DetailNonFavorite.dart';
+import 'package:kuis_123210047/Views/DetailItem.dart';
 
 class ListItem extends StatefulWidget {
   const ListItem({super.key});
@@ -15,7 +15,12 @@ class _ListItemState extends State<ListItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("KUIS TPM IF-E"),
+        centerTitle: true,
+        title: Text(
+          "KUIS TPM IF-E",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
       ),
       body: Container(
         child: GridView.builder(
@@ -66,12 +71,10 @@ class CardItem extends StatelessWidget {
               ),
               Text(
                 "Rp. ${grocery.price}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w700, fontSize: 15),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
               ),
               Container(
-                padding:
-                EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(8),
@@ -83,8 +86,7 @@ class CardItem extends StatelessWidget {
                 onRatingUpdate: (rating) {
                   print(rating);
                 },
-                initialRating:
-                double.parse(grocery.reviewAverage),
+                initialRating: double.parse(grocery.reviewAverage),
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
